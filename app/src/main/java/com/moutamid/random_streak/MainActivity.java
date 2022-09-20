@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,10 +36,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String TEXT = "text";
     public static final String TEXT2 = "text2";
     public static final String TEXT3 = "text3";
+    public static final String TEXT4 = "text4";
 
     private String text;
     private String text2;
     private String text3;
+    private String text4;
 
     int previous_date;
     int current_date;
@@ -189,7 +190,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
-        pointsScore();
 
         String dDtV = date_tv.getText().toString().trim();
         String pD = prev_date.getText().toString().trim();
@@ -199,11 +199,10 @@ public class MainActivity extends AppCompatActivity {
         if (pD.matches(dD)){
             tick.setVisibility(View.VISIBLE);
             close.setVisibility(View.GONE);
-            Toast.makeText(MainActivity.this, "Streak Available to send", Toast.LENGTH_SHORT).show();
             status_text.setText("Streak Available to send... Click on Button to Accept Kindness");
             result.setText("True");
             if (dDtV.matches(dD)){
-                //Toast.makeText(this, "nothing in true", Toast.LENGTH_SHORT).show();
+
             }
             else{
                 String sCounter = score.getText().toString().trim();
@@ -300,16 +299,14 @@ public class MainActivity extends AppCompatActivity {
         else if (!pD.matches(dD)) {
             tick.setVisibility(View.GONE);
             close.setVisibility(View.VISIBLE);
-            Toast.makeText(MainActivity.this, "Already Sent Streak", Toast.LENGTH_SHORT).show();
             status_text.setText("Already Sent Streak");
             result.setText("False");
             if (dDtV.matches(dD)){
-                //Toast.makeText(this, "nothing in false", Toast.LENGTH_SHORT).show();
+
             }
             else{
                 score.setText("1");
-                Toast.makeText(this, "Your Streak Has been broken...", Toast.LENGTH_SHORT).show();
-                status_text.setText("Your Streak Has been broken & starting again...");
+                status_text.setText("Your Streak Has been Starting Now...");
                 tick.setVisibility(View.VISIBLE);
                 close.setVisibility(View.GONE);
                 pointsScore();
@@ -409,9 +406,9 @@ public class MainActivity extends AppCompatActivity {
         editor.putString(TEXT , date_tv.getText().toString());
         editor.putString(TEXT2 , prev_date.getText().toString());
         editor.putString(TEXT3 , score.getText().toString());
+        editor.putString(TEXT4 , points.getText().toString());
 
         editor.apply();
-        //Toast.makeText(this, "Data saved", Toast.LENGTH_SHORT).show();
         status_text.setText("Today's Streak Done - Wait till Tomorrow");
         tick.setVisibility(View.GONE);
         close.setVisibility(View.VISIBLE);
@@ -422,11 +419,13 @@ public class MainActivity extends AppCompatActivity {
         text = sharedPreferences.getString(TEXT , "");
         text2 = sharedPreferences.getString(TEXT2 , "");
         text3 = sharedPreferences.getString(TEXT3 , "");
+        text4 = sharedPreferences.getString(TEXT4 , "");
     }
 
     public void updateData() {
         date_tv.setText(text);
         prev_date.setText(text2);
         score.setText(text3);
+        points.setText(text4);
     }
 }
